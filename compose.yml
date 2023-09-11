@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: passw0rd
+      POSTGRES_DB: threads
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+        - threads
+
+  migrate:
+    image: migrate/migrate:v4.14.1
+    container_name: my_migrate
+    depends_on:
+      - postgres
+    volumes:
+      - ./db/migrations:/migrations
+    entrypoint: ["migrate"]
+    command: ["-path", "/migrations", "-database", "postgresql://user:passw0rd@postgres:5432/threads?sslmode=disable", "up"]
+    networks:
+        - threads
+
+volumes:
+  postgres_data:
+
+networks:
+  threads:
