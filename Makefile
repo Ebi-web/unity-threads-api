@@ -15,3 +15,6 @@ compose/up:
 
 compose/down:
 	docker compose down -v # -v removes volumes
+
+gql_gen:
+	gqlgen generate

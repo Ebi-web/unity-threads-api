@@ -1,12 +1,10 @@
-# GraphQL schema example
-#
-# https://gqlgen.com/getting-started/
-
-type Todo {
+type Thread {
   id: ID!
-  text: String!
-  done: Boolean!
+  title: String!
   user: User!
+  posts: [Post!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type User {
@@ -14,15 +12,26 @@ type User {
   name: String!
 }
 
-type Query {
-  todos: [Todo!]!
+type Post {
+  id: ID!
+  text: String!
+  user: User!
+  thread: Thread!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
-input NewTodo {
+type Query {
+  threads: [Thread!]!
+}
+
+input NewThread {
   text: String!
   userId: String!
 }
 
 type Mutation {
-  createTodo(input: NewTodo!): Todo!
+  createThread(input: NewThread!): Thread!
 }
+
+scalar DateTime

@@ -66,7 +66,7 @@ resolver:
 # gqlgen will search for any type names in the schema in these go packages
 # if they match it will use them, otherwise it will generate them.
 autobind:
-  - "unity-threads/graph/model"
+  - "github.com/Ebi-web/unity-threads-api/graph/model"
 
 # This section declares type mapping between the GraphQL and go type systems
 #
@@ -85,3 +85,18 @@ models:
       - github.com/99designs/gqlgen/graphql.Int
       - github.com/99designs/gqlgen/graphql.Int64
       - github.com/99designs/gqlgen/graphql.Int32
+  DateTime:
+    model:
+      - github.com/99designs/gqlgen/graphql.Time
+  Thread:
+    fields:
+      user:
+        resolver: true
+      posts:
+        resolver: true
+  Post:
+    fields:
+      user:
+        resolver: true
+      thread:
+        resolver: true
